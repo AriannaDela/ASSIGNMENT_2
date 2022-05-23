@@ -13,7 +13,7 @@ import it.unipd.mtss.model.User;
 import it.unipd.mtss.model.EItem.EItemType;
 
 public class BillImpl implements Bill {
-    int limitProcessor = 5;
+    int limitProcessor = 5, limitMouse = 10;
 
     public double getOrderPrice(List<EItem> items, User user) throws BillException {
         if (user == null) {
@@ -35,14 +35,22 @@ public class BillImpl implements Bill {
         // Get total price
         double totalPrice = this.getTotalPrice(items);
 
-        // Get cheapest processor
+        // Get cheapest item by type
         double cheapestProcessor = this.getCheapestByType(items, EItemType.PROCESSOR);
-        // Get count processor
+        double cheapestMouse = this.getCheapestByType(items, EItemType.MOUSE);
+
+        // Get count by type
         int countProcessor = this.getCountByType(items, EItemType.PROCESSOR);
+        int countMouse = this.getCountByType(items, EItemType.MOUSE);
 
         // If processor limit is reached, discount 50% on the cheapest one
         if (countProcessor > limitProcessor) {
             totalPrice = totalPrice - (cheapestProcessor / 2);
+        }
+
+        // If mouse limit reached, discount 100% on the cheapest one
+        if (countMouse > limitMouse) {
+            totalPrice -= cheapestMouse;
         }
 
         return totalPrice;

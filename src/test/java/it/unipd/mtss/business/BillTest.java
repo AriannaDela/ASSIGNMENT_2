@@ -55,4 +55,22 @@ public class BillTest {
 
         assertEquals(1915.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
+
+    @Test
+    public void getOrderPrice_DiscountCheapestMouseLimitBy100Perc_DiscountMouseBy100Perc()
+            throws BillException {
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master aa", EItemType.MOUSE, 29.00));
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master aaa", EItemType.MOUSE, 39.00));
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master aaaa", EItemType.MOUSE, 49.00));
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master aaaaa", EItemType.MOUSE, 59.00));
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master aaaaaa", EItemType.MOUSE, 69.00));
+        itemsOrder.add(new EItem("MX Master aaaaaaa", EItemType.MOUSE, 79.00));
+
+        assertEquals(940.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
 }
