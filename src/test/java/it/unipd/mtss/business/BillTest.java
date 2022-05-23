@@ -40,7 +40,7 @@ public class BillTest {
         itemsOrder.add(new EItem("Intel i9-11900K", EItemType.PROCESSOR, 429.99));
         itemsOrder.add(new EItem("MSI mpg X570", EItemType.MOTHERBOARD, 139.99));
 
-        assertEquals(969.88, bill.getOrderPrice(itemsOrder, user), 1e-3);
+        assertEquals(889.88, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
 
     @Test

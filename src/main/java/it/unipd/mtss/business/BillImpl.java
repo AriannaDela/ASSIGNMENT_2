@@ -38,10 +38,12 @@ public class BillImpl implements Bill {
         // Get cheapest item by type
         double cheapestProcessor = this.getCheapestByType(items, EItemType.PROCESSOR);
         double cheapestMouse = this.getCheapestByType(items, EItemType.MOUSE);
+        double cheapestKeyboard = this.getCheapestByType(items, EItemType.KEYBOARD);
 
         // Get count by type
         int countProcessor = this.getCountByType(items, EItemType.PROCESSOR);
         int countMouse = this.getCountByType(items, EItemType.MOUSE);
+        int countKeyboard = this.getCountByType(items, EItemType.KEYBOARD);
 
         // If processor limit is reached, discount 50% on the cheapest one
         if (countProcessor > limitProcessor) {
@@ -51,6 +53,11 @@ public class BillImpl implements Bill {
         // If mouse limit reached, discount 100% on the cheapest one
         if (countMouse > limitMouse) {
             totalPrice -= cheapestMouse;
+        }
+
+        // If mouse count is equal to keyboard count, discount 100% the cheapest one
+        if (countMouse == countKeyboard && countMouse > 0) {
+            totalPrice -= Math.min(cheapestKeyboard, cheapestMouse);
         }
 
         return totalPrice;
