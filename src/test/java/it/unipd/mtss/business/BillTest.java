@@ -53,6 +53,6 @@ public class BillTest {
         itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 449.00));
         itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 419.00));
 
-        assertEquals(1723.5, bill.getOrderPrice(itemsOrder, user), 1e-3);
+        assertEquals(1915.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
 }
