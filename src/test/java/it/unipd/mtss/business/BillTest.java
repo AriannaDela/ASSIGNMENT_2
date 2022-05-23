@@ -86,4 +86,15 @@ public class BillTest {
 
         assertEquals(797.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
+
+    @Test
+    public void getOrderPrice_TotalPriceDiscount_DiscountTotalPrice10Perc()
+            throws BillException {
+        itemsOrder.add(new EItem("Motherboard 1 - max", EItemType.MOTHERBOARD, 3000.00));
+        itemsOrder.add(new EItem("Motherboard 2 - max", EItemType.MOTHERBOARD, 4000.00));
+        itemsOrder.add(new EItem("Corsair K100 RGB max", EItemType.KEYBOARD,
+                4000.00));
+
+        assertEquals(9900, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
 }
