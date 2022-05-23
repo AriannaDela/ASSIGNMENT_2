@@ -5,6 +5,9 @@
 
 package it.unipd.mtss.business;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unipd.mtss.business.exception.BillException;
@@ -13,8 +16,13 @@ import it.unipd.mtss.model.User;
 import it.unipd.mtss.model.EItem.EItemType;
 
 public class BillImpl implements Bill {
+    List<User> usersGiftProcessed;
     int limitProcessor = 5, limitMouse = 10, limitItemsCount = 30;
     double maxPriceDiscount = 1000.0, minPriceCommission = 10.0;
+
+    public BillImpl() {
+        this.usersGiftProcessed = new ArrayList<>();
+    }
 
     public double getOrderPrice(List<EItem> items, User user) throws BillException {
         if (user == null) {
@@ -113,4 +121,13 @@ public class BillImpl implements Bill {
         return count;
     }
 
+    // Manage order gift
+    public boolean isEligibleForGift(User user, LocalDateTime datetimeOrder) {
+        boolean isUnderage = user.getCurrentAge() < 18;
+        boolean orderAfter18 = datetimeOrder.toLocalTime().isAfter(LocalTime.of(18, 0));
+        boolean orderBefore19 = datetimeOrder.toLocalTime().isBefore(LocalTime.of(19, 0));
+        boolean userLimitReached = usersGiftProcessed.size() < 10;
+
+        return isUnderage && orderAfter18 && orderBefore19 && userLimitReached;
+    }
 }
