@@ -73,4 +73,17 @@ public class BillTest {
 
         assertEquals(940.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
+
+    @Test
+    public void getOrderPrice_MouseCountEqualKeyboardCountDiscount_DiscountMouseBy100Perc()
+            throws BillException {
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master 1", EItemType.MOUSE, 29.00));
+        itemsOrder.add(new EItem("Corsair K100 RGB", EItemType.KEYBOARD, 120.00));
+        itemsOrder.add(new EItem("Corsair K100 RGB - Lite", EItemType.KEYBOARD,
+                129.00));
+        itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 419.00));
+
+        assertEquals(797.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
 }
