@@ -13,7 +13,7 @@ import it.unipd.mtss.model.User;
 import it.unipd.mtss.model.EItem.EItemType;
 
 public class BillImpl implements Bill {
-    int limitProcessor = 5, limitMouse = 10;
+    int limitProcessor = 5, limitMouse = 10, limitItemsCount = 30;
     double maxPriceDiscount = 1000.0;
 
     public double getOrderPrice(List<EItem> items, User user) throws BillException {
@@ -31,6 +31,10 @@ public class BillImpl implements Bill {
 
         if (items.contains(null)) {
             throw new BillException("Item cannot be null");
+        }
+
+        if (items.size() > limitItemsCount) {
+            throw new BillException("No more than 30 elements");
         }
 
         // Get total price
