@@ -97,4 +97,13 @@ public class BillTest {
 
         assertEquals(9900, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
+
+    @Test(expected = BillException.class)
+    public void getOrderPrice_TestOrdersLimit_True() throws BillException {
+        for (int i = 0; i < 31; i++) {
+            itemsOrder.add(new EItem("Corsair K100 RGB", EItemType.KEYBOARD, 90.0));
+        }
+
+        bill.getOrderPrice(itemsOrder, user);
+    }
 }
