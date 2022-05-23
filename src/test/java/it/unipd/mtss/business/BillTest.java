@@ -40,7 +40,7 @@ public class BillTest {
         itemsOrder.add(new EItem("Intel i9-11900K", EItemType.PROCESSOR, 429.99));
         itemsOrder.add(new EItem("MSI mpg X570", EItemType.MOTHERBOARD, 139.99));
 
-        assertEquals(969.88, bill.getOrderPrice(itemsOrder, user), 1e-3);
+        assertEquals(889.88, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
 
     @Test
@@ -72,5 +72,18 @@ public class BillTest {
         itemsOrder.add(new EItem("MX Master aaaaaaa", EItemType.MOUSE, 79.00));
 
         assertEquals(940.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
+
+    @Test
+    public void getOrderPrice_MouseCountEqualKeyboardCountDiscount_DiscountMouseBy100Perc()
+            throws BillException {
+        itemsOrder.add(new EItem("MX Master 3", EItemType.MOUSE, 129.00));
+        itemsOrder.add(new EItem("MX Master 1", EItemType.MOUSE, 29.00));
+        itemsOrder.add(new EItem("Corsair K100 RGB", EItemType.KEYBOARD, 120.00));
+        itemsOrder.add(new EItem("Corsair K100 RGB - Lite", EItemType.KEYBOARD,
+                129.00));
+        itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 419.00));
+
+        assertEquals(797.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
 }
