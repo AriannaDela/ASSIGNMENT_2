@@ -42,4 +42,17 @@ public class BillTest {
 
         assertEquals(969.88, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
+
+    @Test
+    public void getOrderPrice_DiscountCheapestProcessorLimitBy50Perc_I3Discount50Perc()
+            throws BillException {
+        itemsOrder.add(new EItem("Intel i9-11900K", EItemType.PROCESSOR, 429.00));
+        itemsOrder.add(new EItem("Intel i5-xxx", EItemType.PROCESSOR, 329.00));
+        itemsOrder.add(new EItem("Intel i3-xxx", EItemType.PROCESSOR, 120.00));
+        itemsOrder.add(new EItem("Intel i5-xxx", EItemType.PROCESSOR, 229.00));
+        itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 449.00));
+        itemsOrder.add(new EItem("Intel i9-xxx", EItemType.PROCESSOR, 419.00));
+
+        assertEquals(1915.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
 }
