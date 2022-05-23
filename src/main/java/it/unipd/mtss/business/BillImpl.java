@@ -5,6 +5,7 @@
 
 package it.unipd.mtss.business;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import it.unipd.mtss.business.exception.BillException;
@@ -113,4 +114,8 @@ public class BillImpl implements Bill {
         return count;
     }
 
+    // Manage order gift
+    public boolean isEligibleForGift(User user, LocalDateTime datetimeOrder) {
+        return false;
+    }
 }

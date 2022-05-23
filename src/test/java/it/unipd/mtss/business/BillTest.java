@@ -8,6 +8,7 @@ package it.unipd.mtss.business;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -115,4 +116,13 @@ public class BillTest {
         assertEquals(9.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
     }
 
+    @Test
+    public void getOrderPrice_EligibleForGiftUserOrder_True() throws BillException {
+        User userFree = new User(13, "Arianna Pia Free", "De Laurentis",
+                LocalDate.of(2007, 1, 2));
+
+        LocalDateTime orderDate = LocalDateTime.of(2022, 10, 11, 18, 27, 00);
+
+        assertEquals(true, bill.isEligibleForGift(userFree, orderDate));
+    }
 }
