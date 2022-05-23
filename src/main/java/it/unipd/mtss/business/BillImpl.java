@@ -14,7 +14,7 @@ import it.unipd.mtss.model.EItem.EItemType;
 
 public class BillImpl implements Bill {
     int limitProcessor = 5, limitMouse = 10, limitItemsCount = 30;
-    double maxPriceDiscount = 1000.0;
+    double maxPriceDiscount = 1000.0, minPriceCommission = 10.0;
 
     public double getOrderPrice(List<EItem> items, User user) throws BillException {
         if (user == null) {
@@ -49,6 +49,11 @@ public class BillImpl implements Bill {
         int countProcessor = this.getCountByType(items, EItemType.PROCESSOR);
         int countMouse = this.getCountByType(items, EItemType.MOUSE);
         int countKeyboard = this.getCountByType(items, EItemType.KEYBOARD);
+
+        // If totalPrice is less than minPriceCommission, add commission
+        if (totalPrice < minPriceCommission) {
+            totalPrice += 2.0;
+        }
 
         // If processor limit is reached, discount 50% on the cheapest one
         if (countProcessor > limitProcessor) {
