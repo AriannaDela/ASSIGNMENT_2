@@ -106,4 +106,13 @@ public class BillTest {
 
         bill.getOrderPrice(itemsOrder, user);
     }
+
+    @Test
+    public void getOrderPrice_TotalPriceCommissionFee_AddCommissionFee() throws BillException {
+        itemsOrder.add(new EItem("Motherboard 1 - (from Aliexpress probably)", EItemType.MOTHERBOARD, 3.00));
+        itemsOrder.add(new EItem("Motherboard 2 - (from Aliexpress probably)", EItemType.MOTHERBOARD, 4.00));
+
+        assertEquals(9.0, bill.getOrderPrice(itemsOrder, user), 1e-3);
+    }
+
 }
